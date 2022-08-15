@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>a996bd02-7253-4a98-8028-34fd7234db5e</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Web\Controllers\" />
+    <Folder Include="Domain\" />
+    <Folder Include="Web\" />
+    <Folder Include="Repository\" />
+  </ItemGroup>
+
+
+</Project>
