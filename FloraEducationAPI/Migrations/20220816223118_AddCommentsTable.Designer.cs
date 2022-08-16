@@ -3,15 +3,17 @@ using System;
 using FloraEducationAPI.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace FloraEducationAPI.Migrations
 {
     [DbContext(typeof(FloraEducationDbContext))]
-    partial class FloraEducationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220816223118_AddCommentsTable")]
+    partial class AddCommentsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,25 +70,6 @@ namespace FloraEducationAPI.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("FloraEducationAPI.Domain.Models.MiniQuiz", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("PlantId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlantId");
-
-                    b.ToTable("MiniQuiz");
-                });
-
             modelBuilder.Entity("FloraEducationAPI.Domain.Models.Plant", b =>
                 {
                     b.Property<Guid>("Id")
@@ -113,28 +96,6 @@ namespace FloraEducationAPI.Migrations
                     b.ToTable("Plants");
                 });
 
-            modelBuilder.Entity("FloraEducationAPI.Domain.Models.QuizQuestion", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Answer")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Question")
-                        .HasColumnType("text");
-
-                    b.Property<Guid?>("QuizId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuizId");
-
-                    b.ToTable("QuizQuestion");
-                });
-
             modelBuilder.Entity("FloraEducationAPI.Domain.Models.Comment", b =>
                 {
                     b.HasOne("FloraEducationAPI.Domain.Models.Authentication.User", "Author")
@@ -144,20 +105,6 @@ namespace FloraEducationAPI.Migrations
                     b.HasOne("FloraEducationAPI.Domain.Models.Plant", "Plant")
                         .WithMany()
                         .HasForeignKey("PlantId");
-                });
-
-            modelBuilder.Entity("FloraEducationAPI.Domain.Models.MiniQuiz", b =>
-                {
-                    b.HasOne("FloraEducationAPI.Domain.Models.Plant", "Plant")
-                        .WithMany()
-                        .HasForeignKey("PlantId");
-                });
-
-            modelBuilder.Entity("FloraEducationAPI.Domain.Models.QuizQuestion", b =>
-                {
-                    b.HasOne("FloraEducationAPI.Domain.Models.MiniQuiz", "Quiz")
-                        .WithMany()
-                        .HasForeignKey("QuizId");
                 });
 #pragma warning restore 612, 618
         }

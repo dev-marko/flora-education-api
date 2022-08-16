@@ -21,7 +21,6 @@ namespace FloraEducationAPI.Service.Implementations
 
         public void CreateUser(User entity)
         {
-            // TODO: Check if the user already exists
             string passwordHash = BC.HashPassword(entity.Password);
             entity.Password = passwordHash;
             userRepository.Insert(entity);
@@ -59,7 +58,6 @@ namespace FloraEducationAPI.Service.Implementations
 
         public User Register(UserRegisterDTO userRegisterDTO)
         {
-
             User user = new User
             {
                 Email = userRegisterDTO.Email,
