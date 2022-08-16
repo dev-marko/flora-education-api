@@ -1,4 +1,8 @@
 using FloraEducationAPI.Context;
+using FloraEducationAPI.Repository.Implementations;
+using FloraEducationAPI.Repository.Interfaces;
+using FloraEducationAPI.Service.Implementations;
+using FloraEducationAPI.Service.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -51,6 +55,13 @@ namespace FloraEducationAPI
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Key"]))
                     };
                 });
+
+            // Repositories 
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            // Services
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IJWTManagerService, JWTManagerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

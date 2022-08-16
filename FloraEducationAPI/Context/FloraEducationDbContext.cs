@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FloraEducationAPI.Domain.Models.Authentication;
+using Microsoft.EntityFrameworkCore;
 
 namespace FloraEducationAPI.Context
 {
@@ -8,9 +9,13 @@ namespace FloraEducationAPI.Context
         {
         }
 
+        public virtual DbSet<User> Users { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>().HasKey(e => e.Username);
         }
     }
 }
