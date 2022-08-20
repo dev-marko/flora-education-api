@@ -58,10 +58,17 @@ namespace FloraEducationAPI
 
             // Repositories 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
 
             // Services
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IJWTManagerService, JWTManagerService>();
+            services.AddTransient<IPlantService, PlantService>();
+            services.AddTransient<ICertificateService, CertificateService>();
+            services.AddTransient<IMiniQuizService, MiniQuizService>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

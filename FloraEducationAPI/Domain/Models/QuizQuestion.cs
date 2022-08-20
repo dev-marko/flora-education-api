@@ -9,6 +9,7 @@ namespace FloraEducationAPI.Domain.Models
     {
         public MiniQuiz Quiz { get; set; }
         public string Question { get; set; }
-        public string Answer { get; set; }
+        public List<string> Answers { get; set; }
+        public int CorrectAnswerIndex { get; set; }
     }
 }

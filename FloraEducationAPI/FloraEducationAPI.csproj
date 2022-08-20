@@ -9,6 +9,10 @@
   <ItemGroup>
     <Compile Remove="Migrations\20220816222846_AddCommentsTable.cs" />
     <Compile Remove="Migrations\20220816222846_AddCommentsTable.Designer.cs" />
+    <Compile Remove="Migrations\20220820171628_QuizAndQuestionsRelationshipBiDirectional.cs" />
+    <Compile Remove="Migrations\20220820171628_QuizAndQuestionsRelationshipBiDirectional.Designer.cs" />
+    <Compile Remove="Migrations\20220820175706_QuizAndQuestionsRelationshipBiDirectional.cs" />
+    <Compile Remove="Migrations\20220820175706_QuizAndQuestionsRelationshipBiDirectional.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

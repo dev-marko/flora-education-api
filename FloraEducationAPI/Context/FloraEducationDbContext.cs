@@ -59,7 +59,8 @@ namespace FloraEducationAPI.Context
 
             modelBuilder
                 .Entity<QuizQuestion>()
-                .HasOne(e => e.Quiz);
+                .HasOne(e => e.Quiz)
+                .WithMany(e => e.Questions);
         }
     }
 }

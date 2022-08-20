@@ -9,5 +9,6 @@ namespace FloraEducationAPI.Domain.Models
     {
         public Plant Plant { get; set; }
         public string Title { get; set; }
+        public virtual ICollection<QuizQuestion> Questions { get; set; }
     }
 }
