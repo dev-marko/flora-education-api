@@ -51,6 +51,7 @@ namespace FloraEducationAPI.Service.Implementations
 
             var miniQuiz = new MiniQuiz
             {
+                PlantId = plant.Id,
                 Plant = plant,
                 Title = miniQuizDTO.Title
             };
@@ -75,7 +76,7 @@ namespace FloraEducationAPI.Service.Implementations
 
         public MiniQuiz FetchMiniQuizByPlantId(Guid plantId)
         {
-            return miniQuizRepository.FetchAll().SingleOrDefault(e => e.Plant.Id.Equals(plantId));
+            return miniQuizRepository.FetchAll().SingleOrDefault(e => e.PlantId.Equals(plantId));
         }
 
         public MiniQuiz UpdateMiniQuiz(MiniQuiz miniQuiz)
