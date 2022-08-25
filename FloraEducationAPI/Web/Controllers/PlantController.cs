@@ -28,7 +28,7 @@ namespace FloraEducationAPI.Web.Controllers
         [HttpGet("categories")]
         public IActionResult GetAllPlantTypes()
         {
-            return Ok(Enum.GetNames(typeof(PlantType)));
+            return Ok(JsonConvert.SerializeObject(new { categories = Enum.GetNames(typeof(PlantType))}));
         }
 
         [HttpGet]
@@ -63,6 +63,15 @@ namespace FloraEducationAPI.Web.Controllers
         {
             miniQuizDTO.PlantId = plantId;
             return Ok(miniQuizService.CreateMiniQuiz(miniQuizDTO));
+        }
+
+        [HttpPost("{plantId}/mini-quiz")]
+        public IActionResult CheckMiniQuizAnswers(Guid plantId, [FromBody] MiniQuiz miniQuiz)
+        {
+            // TODO: Check mini-quiz answers
+            // if passed, generate Badge and add to user profile
+            // if failed, send failed message
+            throw new NotImplementedException();
         }
 
         [HttpPost("{plantId}/mini-quiz/question")]

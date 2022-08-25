@@ -13,6 +13,7 @@ namespace FloraEducationAPI.Context
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Plant> Plants { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Badge> Badges { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,6 +44,11 @@ namespace FloraEducationAPI.Context
                 .Property(e => e.Id)
                 .ValueGeneratedOnAdd();
 
+            modelBuilder
+                .Entity<Badge>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
 
             // Defining Foreign Keys
             modelBuilder
@@ -61,6 +67,11 @@ namespace FloraEducationAPI.Context
                 .Entity<QuizQuestion>()
                 .HasOne(e => e.Quiz)
                 .WithMany(e => e.Questions);
+
+            modelBuilder
+                .Entity<Badge>()
+                .HasOne(e => e.Owner)
+                .WithMany(e => e.Badges);
         }
     }
 }
