@@ -7,8 +7,8 @@ namespace FloraEducationAPI.Domain.Enumerations
 {
     public enum PlantType
     {
-        Flowers,
-        Fruits,
-        Vegetables
+        Цвеќиња,
+        Овошје,
+        Зеленчук
     }
 }

@@ -32,11 +32,16 @@ namespace FloraEducationAPI.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllPlantsByType([FromQuery] int query)
+        public IActionResult GetAllPlantsByType([FromQuery] string query)
         {
-            PlantType plantType = (PlantType)query;
+            if (Enum.TryParse<PlantType>(query, out PlantType plantType))
+            {
+                return Ok(plantService.FetchAllPlantsByType(plantType));
+            } else
+            {
+                return NotFound(new { error = "Category not found" });
+            }
 
-            return Ok(plantService.FetchAllPlantsByType(plantType));
         }
 
         [HttpPost]
