@@ -7,9 +7,8 @@ namespace FloraEducationAPI.Domain.Enumerations
 {
     public enum PlantType
     {
-        FLOWER,
-        FRUIT,
-        VEGETABLE,
-        TREE
+        Flowers,
+        Fruits,
+        Vegetables
     }
 }
