@@ -48,6 +48,11 @@ namespace FloraEducationAPI.Service.Implementations
             return plantRepository.FetchAll().Where(e => e.Equals(plantName)).SingleOrDefault();
         }
 
+        public bool PlantExists(Guid id)
+        {
+            return FetchPlantById(id) != null;
+        }
+
         public Plant UpdatePlant(Plant entity)
         {
             return plantRepository.Update(entity);

@@ -44,6 +44,17 @@ namespace FloraEducationAPI.Web.Controllers
 
         }
 
+        [HttpGet("{plantId}")]
+        public IActionResult GetPlant(Guid plantId)
+        {
+            if (plantId == null || !plantService.PlantExists(plantId))
+            {
+                return NotFound(new { error = "Plant not found" });
+            }
+
+            return Ok(plantService.FetchPlantById(plantId));
+        }
+
         [HttpPost]
         public IActionResult AddPlant([FromBody] Plant plant)
         {

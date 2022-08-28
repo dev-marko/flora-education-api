@@ -16,6 +16,7 @@ namespace FloraEducationAPI.Service.Interfaces
         Plant CreatePlant(Plant entity);
         Plant UpdatePlant(Plant entity);
         Plant DeletePlant(Plant entity);
+        bool PlantExists(Guid id);
 
         // Comments
     }
