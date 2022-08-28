@@ -34,15 +34,14 @@ namespace FloraEducationAPI.Web.Controllers
         }
 
         [HttpPost("login")]
-        [AllowAnonymous]
-        public IActionResult Login([FromBody] UserLoginDTO userLoginDTO)
+        public IActionResult Login([Bind("Username, Password")] UserLoginDTO userLoginDTO)
         {
             var user = userService.Authenticate(userLoginDTO);
 
             if (user != null)
             {
                 var token = jWTManagerService.GenerateToken(user);
-                return Ok(token);
+                return Ok(token.Token);
             }
 
             return NotFound("User not found");
@@ -58,8 +57,7 @@ namespace FloraEducationAPI.Web.Controllers
                 return BadRequest("User already exists");
             }
 
-            userService.Register(userRegisterDTO);
-            return RedirectToAction("LoginPage");
+            return Ok(userService.Register(userRegisterDTO));
         }
     }
 }
