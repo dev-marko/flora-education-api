@@ -59,6 +59,7 @@ namespace FloraEducationAPI
             // Repositories 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IMiniQuizRepository, MiniQuizRepository>();
 
 
             // Services

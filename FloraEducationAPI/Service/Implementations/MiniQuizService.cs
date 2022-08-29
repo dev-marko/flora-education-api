@@ -11,20 +11,22 @@ namespace FloraEducationAPI.Service.Implementations
 {
     public class MiniQuizService : IMiniQuizService
     {
-        private readonly IRepository<MiniQuiz> miniQuizRepository;
+        private readonly IRepository<MiniQuiz> miniQuizRepositoryGeneric;
         private readonly IRepository<QuizQuestion> questionsRepository;
+        private readonly IMiniQuizRepository miniQuizRepository;
         private readonly IPlantService plantService;
 
-        public MiniQuizService(IRepository<MiniQuiz> miniQuizRepository, IRepository<QuizQuestion> questionsRepository, IPlantService plantService)
+        public MiniQuizService(IRepository<MiniQuiz> miniQuizRepositoryGeneric, IRepository<QuizQuestion> questionsRepository, IMiniQuizRepository miniQuizRepository, IPlantService plantService)
         {
-            this.miniQuizRepository = miniQuizRepository;
+            this.miniQuizRepositoryGeneric = miniQuizRepositoryGeneric;
             this.questionsRepository = questionsRepository;
+            this.miniQuizRepository = miniQuizRepository;
             this.plantService = plantService;
         }
 
         public QuizQuestion AddQuestionToQuiz(QuizQuestionDTO quizQuestionDTO)
         {
-            var miniQuiz = miniQuizRepository.FetchById(quizQuestionDTO.QuizId);
+            var miniQuiz = miniQuizRepositoryGeneric.FetchById(quizQuestionDTO.QuizId);
 
             List<string> answers = new List<string>()
             {
@@ -56,32 +58,32 @@ namespace FloraEducationAPI.Service.Implementations
                 Title = miniQuizDTO.Title
             };
 
-            return miniQuizRepository.Insert(miniQuiz);
+            return miniQuizRepositoryGeneric.Insert(miniQuiz);
         }
 
         public MiniQuiz DeleteMiniQuiz(MiniQuiz miniQuiz)
         {
-            return miniQuizRepository.Delete(miniQuiz);
+            return miniQuizRepositoryGeneric.Delete(miniQuiz);
         }
 
         public List<MiniQuiz> FetchAllMiniQuizes()
         {
-            return miniQuizRepository.FetchAll().ToList();
+            return miniQuizRepositoryGeneric.FetchAll().ToList();
         }
 
         public MiniQuiz FetchMiniQuizById(Guid id)
         {
-            return miniQuizRepository.FetchById(id);
+            return miniQuizRepositoryGeneric.FetchById(id);
         }
 
         public MiniQuiz FetchMiniQuizByPlantId(Guid plantId)
         {
-            return miniQuizRepository.FetchAll().SingleOrDefault(e => e.PlantId.Equals(plantId));
+            return miniQuizRepository.FetchMiniQuizByPlantId(plantId);
         }
 
         public MiniQuiz UpdateMiniQuiz(MiniQuiz miniQuiz)
         {
-            return miniQuizRepository.Update(miniQuiz);
+            return miniQuizRepositoryGeneric.Update(miniQuiz);
         }
     }
 }

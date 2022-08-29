@@ -3,7 +3,6 @@ using FloraEducationAPI.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,22 +14,13 @@ namespace FloraEducationAPI.Web.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IConfiguration configuration;
         private readonly IJWTManagerService jWTManagerService;
         private readonly IUserService userService;
 
-        public AccountController(IConfiguration configuration, IJWTManagerService jWTManagerService, IUserService userService)
+        public AccountController(IJWTManagerService jWTManagerService, IUserService userService)
         {
-            this.configuration = configuration;
             this.jWTManagerService = jWTManagerService;
             this.userService = userService;
-        }
-
-        [HttpGet("login")]
-        [AllowAnonymous]
-        public IActionResult LoginPage()
-        {
-            return Ok("Login page");
         }
 
         [HttpPost("login")]
@@ -48,7 +38,6 @@ namespace FloraEducationAPI.Web.Controllers
         }
 
         [HttpPost("register")]
-        [AllowAnonymous]
         public IActionResult Register([FromBody] UserRegisterDTO userRegisterDTO)
         {
             
