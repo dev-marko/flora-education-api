@@ -1,5 +1,6 @@
 ﻿using FloraEducationAPI.Domain.Models;
 using FloraEducationAPI.Domain.Models.Authentication;
+using FloraEducationAPI.Domain.Relations;
 using Microsoft.EntityFrameworkCore;
 
 namespace FloraEducationAPI.Context
@@ -14,6 +15,7 @@ namespace FloraEducationAPI.Context
         public virtual DbSet<Plant> Plants { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Badge> Badges { get; set; }
+        public virtual DbSet<UserBadges> UserBadges { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,6 +51,10 @@ namespace FloraEducationAPI.Context
                 .Property(e => e.Id)
                 .ValueGeneratedOnAdd();
 
+            modelBuilder.Entity<UserBadges>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
 
             // Defining Foreign Keys
             modelBuilder
@@ -69,9 +75,18 @@ namespace FloraEducationAPI.Context
                 .WithMany(e => e.Questions);
 
             modelBuilder
-                .Entity<Badge>()
-                .HasOne(e => e.Owner)
-                .WithMany(e => e.Badges);
+                .Entity<UserBadges>()
+                .HasOne(e => e.User)
+                .WithMany(e => e.Badges)
+                .HasForeignKey(e => e.Username)
+                .HasConstraintName("FK_Username");
+
+            modelBuilder
+                .Entity<UserBadges>()
+                .HasOne(e => e.Badge)
+                .WithMany(e => e.Users)
+                .HasForeignKey(e => e.BadgeId)
+                .HasConstraintName("FK_BadgeId");
         }
     }
 }

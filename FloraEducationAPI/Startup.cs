@@ -67,6 +67,7 @@ namespace FloraEducationAPI
             services.AddTransient<IJWTManagerService, JWTManagerService>();
             services.AddTransient<IPlantService, PlantService>();
             services.AddTransient<IMiniQuizService, MiniQuizService>();
+            services.AddTransient<IBadgeService, BadgeService>();
 
             // JSON config
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);

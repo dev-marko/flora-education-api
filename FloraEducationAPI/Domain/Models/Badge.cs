@@ -1,4 +1,5 @@
 ﻿using FloraEducationAPI.Domain.Models.Authentication;
+using FloraEducationAPI.Domain.Relations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace FloraEducationAPI.Domain.Models
 {
     public class Badge : BaseEntity
     {
-        public User Owner { get; set; }
-        public string PlantName { get; set; }
+        public string Name { get; set; }
+        public virtual ICollection<UserBadges> Users { get; set; }
     }
 }

@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using FloraEducationAPI.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace FloraEducationAPI.Migrations
 {
     [DbContext(typeof(FloraEducationDbContext))]
-    partial class FloraEducationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220829165033_CreateUsersBadgesRelationTable")]
+    partial class CreateUsersBadgesRelationTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,9 +117,6 @@ namespace FloraEducationAPI.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Planting")
                         .HasColumnType("text");
 
                     b.Property<string>("Predispositions")

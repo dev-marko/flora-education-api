@@ -1,4 +1,5 @@
 ﻿using FloraEducationAPI.Domain.DTO.Authentication;
+using FloraEducationAPI.Domain.Models.Authentication;
 using FloraEducationAPI.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace FloraEducationAPI.Web.Controllers
@@ -47,6 +49,13 @@ namespace FloraEducationAPI.Web.Controllers
             }
 
             return Ok(userService.Register(userRegisterDTO));
+        }
+
+        [HttpGet("me")]
+        public IActionResult GetCurrentlyLoggedInUser([FromQuery] string username)
+        {
+            var user = userService.FetchUserByUsername(username);
+            return Ok(user);
         }
     }
 }

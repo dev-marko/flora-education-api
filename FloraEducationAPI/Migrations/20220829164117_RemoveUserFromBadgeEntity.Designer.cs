@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using FloraEducationAPI.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace FloraEducationAPI.Migrations
 {
     [DbContext(typeof(FloraEducationDbContext))]
-    partial class FloraEducationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220829164117_RemoveUserFromBadgeEntity")]
+    partial class RemoveUserFromBadgeEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,9 +119,6 @@ namespace FloraEducationAPI.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<string>("Planting")
-                        .HasColumnType("text");
-
                     b.Property<string>("Predispositions")
                         .HasColumnType("text");
 
@@ -156,27 +155,6 @@ namespace FloraEducationAPI.Migrations
                     b.ToTable("QuizQuestion");
                 });
 
-            modelBuilder.Entity("FloraEducationAPI.Domain.Relations.UserBadges", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BadgeId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BadgeId");
-
-                    b.HasIndex("Username");
-
-                    b.ToTable("UserBadges");
-                });
-
             modelBuilder.Entity("FloraEducationAPI.Domain.Models.Comment", b =>
                 {
                     b.HasOne("FloraEducationAPI.Domain.Models.Authentication.User", "Author")
@@ -202,21 +180,6 @@ namespace FloraEducationAPI.Migrations
                     b.HasOne("FloraEducationAPI.Domain.Models.MiniQuiz", "Quiz")
                         .WithMany("Questions")
                         .HasForeignKey("QuizId");
-                });
-
-            modelBuilder.Entity("FloraEducationAPI.Domain.Relations.UserBadges", b =>
-                {
-                    b.HasOne("FloraEducationAPI.Domain.Models.Badge", "Badge")
-                        .WithMany("Users")
-                        .HasForeignKey("BadgeId")
-                        .HasConstraintName("FK_BadgeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FloraEducationAPI.Domain.Models.Authentication.User", "User")
-                        .WithMany("Badges")
-                        .HasForeignKey("Username")
-                        .HasConstraintName("FK_Username");
                 });
 #pragma warning restore 612, 618
         }

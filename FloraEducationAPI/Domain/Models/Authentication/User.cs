@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FloraEducationAPI.Domain.Relations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,6 @@ namespace FloraEducationAPI.Domain.Models.Authentication
         public string Role { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public virtual ICollection<Badge> Badges { get; set; }
+        public virtual ICollection<UserBadges> Badges { get; set; }
     }
 }
