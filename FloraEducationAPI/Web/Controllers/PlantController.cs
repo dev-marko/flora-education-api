@@ -18,11 +18,13 @@ namespace FloraEducationAPI.Web.Controllers
     {
         private readonly IPlantService plantService;
         private readonly IMiniQuizService miniQuizService;
+        private readonly ICommentService commentService;
 
-        public PlantController(IPlantService plantService, IMiniQuizService miniQuizService)
+        public PlantController(IPlantService plantService, IMiniQuizService miniQuizService, ICommentService commentService)
         {
             this.plantService = plantService;
             this.miniQuizService = miniQuizService;
+            this.commentService = commentService;
         }
 
         [HttpGet("categories")]
@@ -81,21 +83,18 @@ namespace FloraEducationAPI.Web.Controllers
             return Ok(miniQuizService.CreateMiniQuiz(miniQuizDTO));
         }
 
-        [HttpPost("{plantId}/mini-quiz")]
-        public IActionResult CheckMiniQuizAnswers(Guid plantId, [FromBody] MiniQuiz miniQuiz)
-        {
-            // TODO: Check mini-quiz answers
-            // if passed, generate Badge and add to user profile
-            // if failed, send failed message
-            throw new NotImplementedException();
-        }
-
         [HttpPost("{plantId}/mini-quiz/question")]
         public IActionResult AddQuestionToMiniQuiz(Guid plantId, [FromBody] QuizQuestionDTO quizQuestionDTO)
         {
             var miniQuiz = miniQuizService.FetchMiniQuizByPlantId(plantId);
             quizQuestionDTO.QuizId = miniQuiz.Id;
             return Ok(miniQuizService.AddQuestionToQuiz(quizQuestionDTO));
+        }
+
+        [HttpPost("{plantId}/add-comment")]
+        public IActionResult AddCommentToPlant([FromBody] CommentDTO commentDTO)
+        {
+            return Ok(commentService.AddCommentToPlant(commentDTO));
         }
     }
 }

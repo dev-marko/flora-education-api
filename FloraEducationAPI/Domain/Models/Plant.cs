@@ -17,5 +17,6 @@ namespace FloraEducationAPI.Domain.Models
         public string Predispositions { get; set; }
         public string Planting { get; set; }
         public string Maintenance { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

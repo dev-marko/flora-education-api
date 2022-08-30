@@ -59,7 +59,9 @@ namespace FloraEducationAPI.Context
             // Defining Foreign Keys
             modelBuilder
                 .Entity<Comment>()
-                .HasOne(e => e.Plant);
+                .HasOne(e => e.Plant)
+                .WithMany(e => e.Comments)
+                .HasConstraintName("FK_PlantId");
 
             modelBuilder
                 .Entity<Comment>()

@@ -11,41 +11,43 @@ namespace FloraEducationAPI.Service.Implementations
 {
     public class PlantService : IPlantService
     {
-        private readonly IRepository<Plant> plantRepository;
+        private readonly IRepository<Plant> plantRepositoryGeneric;
+        private readonly IPlantRepository plantRepository;
 
-        public PlantService(IRepository<Plant> plantRepository)
+        public PlantService(IRepository<Plant> plantRepositoryGeneric, IPlantRepository plantRepository)
         {
+            this.plantRepositoryGeneric = plantRepositoryGeneric;
             this.plantRepository = plantRepository;
         }
 
         public Plant CreatePlant(Plant entity)
         {
-            return plantRepository.Insert(entity);
+            return plantRepositoryGeneric.Insert(entity);
         }
 
         public Plant DeletePlant(Plant entity)
         {
-            return plantRepository.Delete(entity);
+            return plantRepositoryGeneric.Delete(entity);
         }
 
         public List<Plant> FetchAllPlants()
         {
-            return plantRepository.FetchAll().ToList();
+            return plantRepositoryGeneric.FetchAll().ToList();
         }
 
         public List<Plant> FetchAllPlantsByType(PlantType plantType)
         {
-            return plantRepository.FetchAll().Where(e => e.Type.Equals(plantType)).ToList();
+            return plantRepositoryGeneric.FetchAll().Where(e => e.Type.Equals(plantType)).ToList();
         }
 
         public Plant FetchPlantById(Guid id)
         {
-            return plantRepository.FetchById(id);
+            return plantRepository.FetchPlantById(id);
         }
 
         public Plant FetchPlantByName(string plantName)
         {
-            return plantRepository.FetchAll().Where(e => e.Equals(plantName)).SingleOrDefault();
+            return plantRepositoryGeneric.FetchAll().Where(e => e.Equals(plantName)).SingleOrDefault();
         }
 
         public bool PlantExists(Guid id)
@@ -55,7 +57,7 @@ namespace FloraEducationAPI.Service.Implementations
 
         public Plant UpdatePlant(Plant entity)
         {
-            return plantRepository.Update(entity);
+            return plantRepositoryGeneric.Update(entity);
         }
     }
 }

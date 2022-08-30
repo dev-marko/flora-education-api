@@ -60,6 +60,7 @@ namespace FloraEducationAPI
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IMiniQuizRepository, MiniQuizRepository>();
+            services.AddScoped<IPlantRepository, PlantRepository>();
 
 
             // Services
@@ -68,6 +69,7 @@ namespace FloraEducationAPI
             services.AddTransient<IPlantService, PlantService>();
             services.AddTransient<IMiniQuizService, MiniQuizService>();
             services.AddTransient<IBadgeService, BadgeService>();
+            services.AddTransient<ICommentService, CommentService>();
 
             // JSON config
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
