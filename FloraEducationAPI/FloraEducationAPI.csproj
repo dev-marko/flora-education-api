@@ -15,6 +15,8 @@
     <Compile Remove="Migrations\20220820175706_QuizAndQuestionsRelationshipBiDirectional.Designer.cs" />
     <Compile Remove="Migrations\20220829163936_RemoveUserFromBadgeEntity.cs" />
     <Compile Remove="Migrations\20220829163936_RemoveUserFromBadgeEntity.Designer.cs" />
+    <Compile Remove="Migrations\20220901164851_CreateUserLikedPlantsTable.cs" />
+    <Compile Remove="Migrations\20220901164851_CreateUserLikedPlantsTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

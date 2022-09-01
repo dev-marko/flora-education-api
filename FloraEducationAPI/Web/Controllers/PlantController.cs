@@ -19,12 +19,14 @@ namespace FloraEducationAPI.Web.Controllers
         private readonly IPlantService plantService;
         private readonly IMiniQuizService miniQuizService;
         private readonly ICommentService commentService;
+        private readonly IUserLikedPlantsService userLikedPlantsService;
 
-        public PlantController(IPlantService plantService, IMiniQuizService miniQuizService, ICommentService commentService)
+        public PlantController(IPlantService plantService, IMiniQuizService miniQuizService, ICommentService commentService, IUserLikedPlantsService userLikedPlantsService)
         {
             this.plantService = plantService;
             this.miniQuizService = miniQuizService;
             this.commentService = commentService;
+            this.userLikedPlantsService = userLikedPlantsService;
         }
 
         [HttpGet("categories")]
@@ -95,6 +97,12 @@ namespace FloraEducationAPI.Web.Controllers
         public IActionResult AddCommentToPlant([FromBody] CommentDTO commentDTO)
         {
             return Ok(commentService.AddCommentToPlant(commentDTO));
+        }
+
+        [HttpPost("add-to-liked")]
+        public IActionResult AddPlantToLikedPlants([FromBody] UserLikedPlantDTO userLikedPlantDTO)
+        {
+            return Ok(userLikedPlantsService.AddPlantToLikedPlants(userLikedPlantDTO));
         }
     }
 }

@@ -15,5 +15,6 @@ namespace FloraEducationAPI.Domain.Models.Authentication
         public string Name { get; set; }
         public string Surname { get; set; }
         public virtual ICollection<UserBadges> Badges { get; set; }
+        public virtual ICollection<UserLikedPlants> LikedPlants { get; set; }
     }
 }
