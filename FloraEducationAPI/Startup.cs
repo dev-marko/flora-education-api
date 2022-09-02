@@ -39,15 +39,16 @@ namespace FloraEducationAPI
             // Database connection
 
             var dbConnectionString = string.Empty;
-
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            //Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
+            if (false)
             {
                 dbConnectionString = Configuration.GetConnectionString("FloraEducationApiDatabase");
             }
             else
             {
                 // Use connection string provided at runtime by Heroku.
-                var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+                //var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+                var connectionUrl = "postgres://blnbhlkjtaexph:63bfac8895daee59c9a8482c2633f198e67b4d6b4a4a30b9383af970376989fb@ec2-34-246-86-78.eu-west-1.compute.amazonaws.com:5432/d3s6emd1cr2pkl";
 
                 connectionUrl = connectionUrl.Replace("postgres://", string.Empty);
                 var userPassSide = connectionUrl.Split("@")[0];
@@ -64,18 +65,6 @@ namespace FloraEducationAPI
 
 
             services.AddDbContext<FloraEducationDbContext>(options => options.UseNpgsql(dbConnectionString));
-
-            var serviceProvider = services.BuildServiceProvider();
-
-            try
-            {
-                var dbContext = serviceProvider.GetRequiredService<FloraEducationDbContext>();
-                dbContext.Database.Migrate();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
 
             // Repositories 
             services.AddScoped<IUserRepository, UserRepository>();
@@ -102,22 +91,18 @@ namespace FloraEducationAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            if (!env.IsDevelopment())
-            {
-                app.UseHttpsRedirection();
-            }
-
-            app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseEndpoints(endpoints =>
             {
