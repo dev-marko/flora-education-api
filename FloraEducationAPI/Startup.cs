@@ -6,6 +6,7 @@ using FloraEducationAPI.Service.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -64,6 +65,8 @@ namespace FloraEducationAPI
             //}
 
 
+
+
             services.AddDbContext<FloraEducationDbContext>(options => options.UseNpgsql(dbConnectionString));
 
             // Repositories 
@@ -85,7 +88,16 @@ namespace FloraEducationAPI
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             // CORS
+            services.AddHttpsRedirection(options => { options.HttpsPort = 443; });
             services.AddCors();
+
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+                                           ForwardedHeaders.XForwardedProto;
+                options.KnownNetworks.Clear();
+                options.KnownProxies.Clear();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
