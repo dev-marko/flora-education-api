@@ -24,6 +24,8 @@ namespace FloraEducationAPI
 {
     public class Startup
     {
+        private IServiceProvider serviceProvider;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,7 +34,7 @@ namespace FloraEducationAPI
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services, IServiceProvider serviceProvider)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
@@ -63,7 +65,6 @@ namespace FloraEducationAPI
 
 
             services.AddDbContext<FloraEducationDbContext>(options => options.UseNpgsql(dbConnectionString));
-
 
             try
             {
@@ -97,8 +98,10 @@ namespace FloraEducationAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
+            this.serviceProvider = serviceProvider;
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
