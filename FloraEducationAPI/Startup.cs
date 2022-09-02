@@ -24,8 +24,6 @@ namespace FloraEducationAPI
 {
     public class Startup
     {
-        private IServiceProvider serviceProvider;
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -67,6 +65,8 @@ namespace FloraEducationAPI
 
             services.AddDbContext<FloraEducationDbContext>(options => options.UseNpgsql(dbConnectionString));
 
+            var serviceProvider = services.BuildServiceProvider();
+
             try
             {
                 var dbContext = serviceProvider.GetRequiredService<FloraEducationDbContext>();
@@ -100,9 +100,8 @@ namespace FloraEducationAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            this.serviceProvider = serviceProvider;
 
             if (env.IsDevelopment())
             {
