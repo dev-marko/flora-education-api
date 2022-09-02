@@ -88,7 +88,6 @@ namespace FloraEducationAPI
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             // CORS
-            services.AddHttpsRedirection(options => { options.HttpsPort = 443; });
             services.AddCors();
 
             services.Configure<ForwardedHeadersOptions>(options =>
@@ -107,6 +106,9 @@ namespace FloraEducationAPI
             //{
             //    app.UseDeveloperExceptionPage();
             //}
+            app.UseForwardedHeaders();
+
+            app.UseHsts();
 
             app.UseHttpsRedirection();
 
