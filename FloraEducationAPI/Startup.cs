@@ -61,6 +61,7 @@ namespace FloraEducationAPI
                 var database = hostSide.Split("/")[1].Split("?")[0];
 
                 dbConnectionString = $"Host={host};Database={database};Username={user};Password={password};SSL Mode=Require;Trust Server Certificate=true";
+                Console.WriteLine(dbConnectionString);
             }
 
 
@@ -71,8 +72,9 @@ namespace FloraEducationAPI
                 var dbContext = serviceProvider.GetRequiredService<FloraEducationDbContext>();
                 dbContext.Database.Migrate();
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e);
             }
 
             // Repositories 
