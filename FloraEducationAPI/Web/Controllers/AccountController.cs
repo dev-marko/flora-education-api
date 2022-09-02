@@ -16,12 +16,10 @@ namespace FloraEducationAPI.Web.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IJWTManagerService jWTManagerService;
         private readonly IUserService userService;
 
-        public AccountController(IJWTManagerService jWTManagerService, IUserService userService)
+        public AccountController(IUserService userService)
         {
-            this.jWTManagerService = jWTManagerService;
             this.userService = userService;
         }
 
@@ -32,8 +30,7 @@ namespace FloraEducationAPI.Web.Controllers
 
             if (user != null)
             {
-                var token = jWTManagerService.GenerateToken(user);
-                return Ok(token.Token);
+                return Ok(user.Username);
             }
 
             return NotFound("User not found");

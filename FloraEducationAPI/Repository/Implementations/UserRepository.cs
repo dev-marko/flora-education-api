@@ -42,7 +42,12 @@ namespace FloraEducationAPI.Repository.Implementations
 
         public User FetchUserByUsername(string username)
         {
-            return entities.Include(e => e.Badges).Include("Badges.Badge").SingleOrDefault(e => e.Username == username);
+            return entities
+                .Include(e => e.LikedPlants)
+                .Include("LikedPlants.Plant")
+                .Include(e => e.Badges)
+                .Include("Badges.Badge")
+                .SingleOrDefault(e => e.Username == username);
         }
 
         public User VerifyUserCredentials(string username, string password)

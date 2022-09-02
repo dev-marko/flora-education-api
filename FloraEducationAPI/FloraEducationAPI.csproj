@@ -17,6 +17,8 @@
     <Compile Remove="Migrations\20220829163936_RemoveUserFromBadgeEntity.Designer.cs" />
     <Compile Remove="Migrations\20220901164851_CreateUserLikedPlantsTable.cs" />
     <Compile Remove="Migrations\20220901164851_CreateUserLikedPlantsTable.Designer.cs" />
+    <Compile Remove="Migrations\20220901171053_test2.cs" />
+    <Compile Remove="Migrations\20220901171053_test2.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

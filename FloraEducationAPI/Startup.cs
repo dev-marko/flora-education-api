@@ -40,22 +40,6 @@ namespace FloraEducationAPI
             services.AddDbContext<FloraEducationDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("FloraEducationApiDatabase")));
 
-            // JWT Authentication
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = Configuration["JWT:Issuer"],
-                        ValidAudience = Configuration["JWT:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Key"]))
-                    };
-                });
-
             // Repositories 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -65,7 +49,6 @@ namespace FloraEducationAPI
 
             // Services
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IJWTManagerService, JWTManagerService>();
             services.AddTransient<IPlantService, PlantService>();
             services.AddTransient<IMiniQuizService, MiniQuizService>();
             services.AddTransient<IBadgeService, BadgeService>();
@@ -95,8 +78,6 @@ namespace FloraEducationAPI
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseRouting();
-
-            app.UseAuthentication();
 
             app.UseAuthorization();
 
