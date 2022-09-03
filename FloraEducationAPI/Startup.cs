@@ -96,11 +96,11 @@ namespace FloraEducationAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseForwardedHeaders();
-                //app.UseHsts();
-            }
+            //else
+            //{
+            //    app.UseForwardedHeaders();
+            //    //app.UseHsts();
+            //}
 
             app.UseHttpsRedirection();
 
