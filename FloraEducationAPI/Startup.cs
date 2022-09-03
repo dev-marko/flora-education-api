@@ -106,6 +106,7 @@ namespace FloraEducationAPI
             //{
             //    app.UseDeveloperExceptionPage();
             //}
+
             app.UseForwardedHeaders();
 
             app.UseHsts();
