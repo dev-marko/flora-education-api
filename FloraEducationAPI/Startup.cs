@@ -78,15 +78,6 @@ namespace FloraEducationAPI
 
             // CORS
             services.AddCors();
-
-            // HTTPS Redirect headers
-            services.Configure<ForwardedHeadersOptions>(options =>
-            {
-                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor |
-                                           ForwardedHeaders.XForwardedProto;
-                options.KnownNetworks.Clear();
-                options.KnownProxies.Clear();
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,11 +87,6 @@ namespace FloraEducationAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-            //else
-            //{
-            //    app.UseForwardedHeaders();
-            //    //app.UseHsts();
-            //}
 
             app.UseHttpsRedirection();
 
