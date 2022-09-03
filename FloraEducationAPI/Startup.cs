@@ -99,7 +99,7 @@ namespace FloraEducationAPI
             else
             {
                 app.UseForwardedHeaders();
-                app.UseHsts();
+                //app.UseHsts();
             }
 
             app.UseHttpsRedirection();
