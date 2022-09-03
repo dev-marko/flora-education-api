@@ -61,7 +61,8 @@ namespace FloraEducationAPI
                 var host = hostSide.Split("/")[0];
                 var database = hostSide.Split("/")[1].Split("?")[0];
 
-                dbConnectionString = $"Host={host};Database={database};Username={user};Password={password};SSL Mode=Require;Trust Server Certificate=true";
+                // dbConnectionString = $"Host={host};Database={database};Username={user};Password={password};SSL Mode=Require;Trust Server Certificate=true";
+                dbConnectionString = $"Host=ec2-34-246-86-78.eu-west-1.compute.amazonaws.com;Database=d3s6emd1cr2pkl;Username=blnbhlkjtaexph;Password=63bfac8895daee59c9a8482c2633f198e67b4d6b4a4a30b9383af970376989fb;SSL Mode=Require;Trust Server Certificate=true";
             }
 
             services.AddDbContext<FloraEducationDbContext>(options => options.UseNpgsql(dbConnectionString));
